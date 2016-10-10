@@ -9,39 +9,29 @@ namespace EditorDeMapa
 {
     class Editor
     {
-        Punto pos = new Punto();
+        static Punto pos = new Punto();
 
-        ConsoleKey izq, der, up, down, enter;
+        static ConsoleKey izq=ConsoleKey.LeftArrow, der=ConsoleKey.RightArrow, up=ConsoleKey.UpArrow, down=ConsoleKey.DownArrow, enter=ConsoleKey.Enter;
+        //static ConsoleKey esc = ConsoleKey.Escape;
 
-        short obj = 0;
+        static short obj = 0;
 
         static List<ObjEscenario> LObj = new List<ObjEscenario>();
 
-        //static Obstaculo obs = new Obstaculo(0, 0);
-        //static Plataforma plat = new Plataforma(0, 0);
-
-        public Editor(ConsoleKey tecla_izq, ConsoleKey tecla_der, ConsoleKey tecla_up, ConsoleKey tecla_down,ConsoleKey tecla_enter)
+        private Editor()
         {
-            izq = tecla_izq;
-            der = tecla_der;
-            up = tecla_up;
-            down = tecla_down;
-            enter = tecla_enter;
-        
+        }
+
+        public static void Init()
+        {
             pos.x = 1;
             pos.y = 10;
-
             
-        }
-
-        public void Init()
-        {
             LObj.Add(new Obstaculo(0, 0));
             LObj.Add(new Plataforma(0, 0));
-
         }
 
-        public bool Eleccion(ConsoleKeyInfo tecla)
+        public static bool Eleccion(ConsoleKeyInfo tecla)
         {
 
             LObj[obj].Borrar();
@@ -64,7 +54,7 @@ namespace EditorDeMapa
             return true;
         }
 
-        public void Mover(ConsoleKeyInfo tecla)
+        public static void Mover(ConsoleKeyInfo tecla)
         {
             
             foreach (ObjEscenario obj in LObj)
@@ -102,14 +92,19 @@ namespace EditorDeMapa
                     case 1: Escenario.AgregarObjeto(new Plataforma(pos.x, (int)pos.y));
                         break;
                 }
-
             }
+
+            if (tecla.Key == ConsoleKey.Delete)
+            {
+                Escenario.QuitarUltObjeto();
+            }
+            
         }
 
         static DateTime start = DateTime.Now;
-        short mostrar=0;
+        static short mostrar=0;
 
-        public void Dibujar()
+        public static void Dibujar()
         {
 
             if ((DateTime.Now - start).TotalMilliseconds >= 250)
@@ -128,8 +123,16 @@ namespace EditorDeMapa
                 start = DateTime.Now;
             }
         }
-
-        public void Borrar()
+        /*
+        public static void BarraDeObjetos()
+        {
+            foreach (ObjEscenario obj in LObj)
+            {
+                obj.VistaPrevia(pos.x,(int)pos.y);
+            }
+        }
+        */
+        public static void Borrar()
         {
             Pantalla.Borrar(pos.x,(int)pos.y);
         }

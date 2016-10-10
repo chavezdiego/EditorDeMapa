@@ -16,26 +16,9 @@ namespace EditorDeMapa
 
             Console.CursorVisible = false;
 
-            var Cursor = new Editor(ConsoleKey.A, ConsoleKey.D, ConsoleKey.W, ConsoleKey.S, ConsoleKey.Enter);
+            Editor.Init();
 
-            Cursor.Init();
-
-            bool fin=true;
-
-            do
-            {
-                if (Console.KeyAvailable)
-                {
-                    ConsoleKeyInfo tecla = Console.ReadKey(true);
-                    fin = Cursor.Eleccion(tecla);
-                }
-
-                Cursor.Dibujar();
-
-                Pantalla.Dibujar();
-            } while (fin);
-
-
+            ModoEleccion();
 
             while (true)
             {
@@ -44,10 +27,14 @@ namespace EditorDeMapa
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo tecla = Console.ReadKey(true);
-                    Cursor.Mover(tecla);
+                    Editor.Mover(tecla);
+                    if (tecla.Key == ConsoleKey.Escape)
+                    {
+                        ModoEleccion();
+                    }
                 }
 
-                Cursor.Dibujar();
+                Editor.Dibujar();
 
                 Escenario.Imprimir();
 
@@ -55,5 +42,24 @@ namespace EditorDeMapa
             }
 
         }
+
+        static public void ModoEleccion()
+        {
+            bool fin = true;
+
+            do
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo tecla = Console.ReadKey(true);
+                    fin = Editor.Eleccion(tecla);
+                }
+
+                Editor.Dibujar();
+
+                Pantalla.Dibujar();
+            } while (fin);
+        }
+
     }
 }

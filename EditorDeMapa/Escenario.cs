@@ -20,6 +20,12 @@ namespace EditorDeMapa
             Mapa.Add(obj);
         }
 
+        static public void QuitarUltObjeto()
+        {
+            Mapa[Mapa.Count - 1].Borrar();
+            Mapa.RemoveAt(Mapa.Count-1);
+        }
+
         static public void Imprimir()
         {
             foreach (ObjEscenario obj in Mapa)
