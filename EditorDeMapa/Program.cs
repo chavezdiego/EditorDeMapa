@@ -20,6 +20,7 @@ namespace EditorDeMapa
 
             ModoEleccion();
 
+
             while (true)
             {
                 //Pantalla.BorrarPantalla();
