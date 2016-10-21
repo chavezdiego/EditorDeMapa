@@ -36,6 +36,16 @@ namespace EditorDeMapa
 
         }
 
+        public static void CargarAMatriz(string text, int x, int y)
+        {
+            int FinPalabra = text.Count();
+
+            for (int i = x, n = 0; i < FinPalabra || n < FinPalabra; i++, n++)
+            {
+                Matriz[i, y] = text[n];
+            }
+        }
+
         public static void CargarAMatriz(char img, int X, int Y)
         {
             Matriz[X, Y] = img;

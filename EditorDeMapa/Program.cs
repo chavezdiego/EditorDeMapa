@@ -18,9 +18,28 @@ namespace EditorDeMapa
 
             Editor.Init();
 
-            ModoEleccion();
+            //ModoEleccion();
+            
+            // Menu Principal
+            bool salir=true;
 
+            do
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo tecla = Console.ReadKey(true);
+                    Menu.Principal(tecla);
+                    if (tecla.Key == ConsoleKey.Escape)
+                    {
+                        salir = false;
+                    }
+                }
+                Menu.Visualizar();
 
+                Escenario.Imprimir();
+
+            } while (salir);
+            /*
             while (true)
             {
                 //Pantalla.BorrarPantalla();
@@ -41,7 +60,7 @@ namespace EditorDeMapa
 
                 Pantalla.Dibujar();
             }
-
+            */
         }
 
         static public void ModoEleccion()
